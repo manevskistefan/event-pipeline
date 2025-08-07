@@ -2,11 +2,9 @@ services:
   mysql:
     image: mysql:8.0
     container_name: event-pipeline-mysql
-    environment:
-      MYSQL_HOST: localhost
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: testpass
-      MYSQL_DATABASE: eventdb
+    env_file:
+      - ./.env
+
     ports:
       - "3306:3306"
     healthcheck:

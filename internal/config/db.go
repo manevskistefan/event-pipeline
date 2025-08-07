@@ -19,6 +19,7 @@ func NewMySQLDB() *sqlx.DB {
 }
 
 func Connect() (*sqlx.DB, error) {
+	log.Println("Connecting to MySQL database...", os.Getenv("MYSQL_ROOT_PASSWORD"))
 	config := mysql.Config{
 		User:                 os.Getenv("MYSQL_ROOT_USER"),
 		Passwd:               os.Getenv("MYSQL_ROOT_PASSWORD"),

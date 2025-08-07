@@ -6,7 +6,6 @@ import (
 	"event-processing-pipeline/internal/pipeline"
 	"io"
 	"net/http"
-	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -15,7 +14,7 @@ import (
 type EventPipeline struct {
 	ingestionChan chan api.EventDTO
 	workerPool    []*Worker
-	storage       Storage
+	// storage       Storage
 	// metrics       *Metrics
 	ctx *gin.Context
 }
@@ -65,10 +64,7 @@ func (c *eventController) HandleEventsBatch(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusAccepted, gin.H{"status": "batch processing started"})
 
-	workers := make([]Worker, len(events))
-	wg := &sync.WaitGroup{}
-
-	for i, event := range events {
+	for i, _ := range events {
 		worker := &Worker{
 			Id:      i,
 			jobChan: make(chan api.EventDTO),
@@ -98,4 +94,8 @@ func (w *Worker) Start(ctx *gin.Context) {
 func (c *eventController) GetMetrics(ctx *gin.Context) {
 	// Assuming metrics are not implemented yet
 	ctx.JSON(http.StatusOK, gin.H{"status": "metrics not implemented"})
+}
+
+func (w *Worker) processJob(ctx *gin.Context, job api.EventDTO) {
+
 }

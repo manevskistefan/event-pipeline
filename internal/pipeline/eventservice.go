@@ -94,7 +94,3 @@ func (s *eventService) Store(ctx gin.Context, events []storage.ProcessedEvent) e
 
 	return nil
 }
-
-func (w *Worker) processJob(ctx *gin.Context, job api.EventDTO) {
-
-}
