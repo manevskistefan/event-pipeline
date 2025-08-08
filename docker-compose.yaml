@@ -34,10 +34,10 @@ services:
       );"
     restart: "no"
   
-  # event-pipeline:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: event-pipeline
-  #   depends_on:
-  #     - mysql
+  event-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: event-pipeline
+    depends_on:
+      - mysql

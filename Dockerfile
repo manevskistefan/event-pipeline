@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.24.5-alpine AS build
+FROM golang:1.24.5-alpine AS builder
 
 WORKDIR /app
 
