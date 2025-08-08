@@ -5,10 +5,13 @@ WORKDIR /app
 
 COPY go.mod ./
 COPY go.sum ./
+COPY .env /app/cmd/.env
 
 RUN go mod download
 
 COPY . .
+COPY .env /app/cmd/.env
+
 RUN go build -o event-pipeline cmd/main.go
 
 FROM alpine:latest
@@ -16,6 +19,6 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 COPY --from=builder /app/event-pipeline .
-EXPOSE 8080
+EXPOSE 9000
 
 CMD ["./event-pipeline"]
